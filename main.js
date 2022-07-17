@@ -30,7 +30,7 @@ async function handleDropAsync(e) {
     // get the body of all the responses with async await
     let bodies = await Promise.all(responses.map(res => {
         // log res to console
-        let result = await res.json();
+        let result = (async function() { return res.json() })();
         console.log(result);
     }));
     
