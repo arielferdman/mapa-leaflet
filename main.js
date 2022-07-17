@@ -62,7 +62,7 @@ const addMarker = (lat, lon, text) => {
 
 const searchAddress = async (term, comment, markers_data) => {
     let url = `http://sheetcoins.com/search/${term}`;
-    return new Promise((resolve, reject) => res(fetch(url, {
+    return new Promise((resolve, reject) => resolve(fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
