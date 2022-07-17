@@ -28,7 +28,10 @@ async function handleDropAsync(e) {
 
 
     // get the body of all the responses with async await
-    let bodies = await Promise.all(responses.map(res => res.json()));
+    let bodies = await Promise.all(responses.map(res => {
+        // log res to console
+        console.log(res);
+    }));
     
     // log the body of all the responses
     console.log(bodies);
@@ -57,14 +60,14 @@ const addMarker = (lat, lon, text) => {
     marker.bindPopup(text).openPopup();
 }
 
-const searchAddress = (term, comment, markers_data) => {
+const searchAddress = async (term, comment, markers_data) => {
     let url = `http://sheetcoins.com/search/${term}`;
-    return new Promise((resolve, reject) => fetch(url, {
+    return new Promise((resolve, reject) => res(fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Request-Method': 'GET',
             'Access-Control-Request-Headers': 'Content-Type',
         }
-    }));
+    })));
 }
