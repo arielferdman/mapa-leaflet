@@ -17,12 +17,12 @@ async function handleDropAsync(e) {
     /* data is an ArrayBuffer */
     const workbook = XLSX.read(data);
 
-    const first_sheet_name = workbook.SheetNames[0];
+    /* const first_sheet_name = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[first_sheet_name];
     const addresses_data = XLSX.utils.sheet_to_json(worksheet)[0];
+    let addresses = Object.keys(addresses_data); */
 
-    let addresses = Object.keys(addresses_data);
-
+    let addresses = getSheetData(workbook);
 
     let responses = await process_addresses_data(addresses, addresses_data);
 
@@ -46,6 +46,18 @@ function addMarkers(markers_data) {
 
 document.querySelector('.file-upload').addEventListener("change", handleDropAsync, false);
 
+function parse_addresses_data(addresses) {
+    let addrs_cursor = null;
+    let addrs = [];
+    let addrs_data = [];
+    for (let i = 0; i < addresses.length; i += 2) {
+	addrs_cursor = addresses[i];
+	addrs.push(addrs_cursor);
+	addrs_data[addrs_cursor] = addresses[i + 1];
+    }
+    return [addrs, addrs_data]
+}
+
 async function process_addresses_data(addresses, addresses_data) {
     let markers_data = [];
     let promises = [];
@@ -61,8 +73,28 @@ const addMarker = (lat, lon, text) => {
     marker.bindPopup(text).openPopup();
 }
 
+function getSheetData(workbook) {
+	    let data = [];
+	    let sheet = getSheet(workbook);
+	    let sheetKeys = getSheetKeys(workbook);
+	    sheetKeys.forEach(key => {
+		            data.push(sheet[key]);
+		        });
+	    return data.map(value => {return value['v']});
+}
+
+function getSheetKeys(workbook) {
+	    return Object.keys(getSheet(workbook)).filter(key => {
+		        return !key.includes('ref') && !key.includes('margins');
+	    });
+}
+
+function getSheet(workbook) {
+	    return workbook.Sheets[workbook.SheetNames[0]];
+}
+
 const searchAddress = async (term, comment, markers_data) => {
-    let url = `http://sheetcoins.com/search/${term}`;
+    let url = `http://194.163.148.244/search/${term}`;
     return new Promise((resolve, reject) => resolve(fetch(url, {
         method: 'GET',
         headers: {
