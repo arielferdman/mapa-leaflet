@@ -1,3 +1,9 @@
+#results {
+    margin: 20px 40px 0 40px;
+    height: 20vh;
+    overflow: auto;
+}
+
 .file-upload {
     position: relative;
     overflow: hidden;

@@ -17,8 +17,22 @@
 
 <body>
     <div id="map"></div>
-    <input class="file-upload" type="file" id="input">
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.18.9/package/dist/xlsx.full.min.js"></script>
+    <!-- address search form -->
+    <form id="search-form" action="">
+        <fieldset>
+            <legend>Search for an address</legend>
+            <label for="search">Search for an address</label>
+            <input type="text" id="search" placeholder="Search for an address">
+            <input id="search-button" type="submit" value="Search">
+        </fieldset>
+        <fieldset>
+            <legend>Upload Addresses CSV</legend>
+            <label for="input">Upload a file</label>
+            <input class="file-upload" type="file" id="input">
+        </fieldset>
+    <!-- result list -->
+    <div id="results"></div>
     <script src="main-new.js"></script>
 </body>
 
