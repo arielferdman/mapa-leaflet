@@ -28,10 +28,7 @@ searchButton.addEventListener('click', () => {
 function setResultList(parsedResult) {
     console.log(parsedResult);
     resultList.innerHTML = "";
-    for (const marker of currentMarkers) {
-        map.removeLayer(marker);
-    }
-    map.flyTo(new L.LatLng(parsedResult[0].lat, parsedResult[0].lon), 15);
+    map.flyTo(new L.LatLng(parsedResult[0].lat, parsedResult[0].lon), 16);
     for (const result of parsedResult) {
         const li = document.createElement('li');
         li.classList.add('list-group-item', 'list-group-item-action');
