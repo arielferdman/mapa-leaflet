@@ -1,0 +1,27 @@
+#results {
+    margin: 20px 40px 0 40px;
+    height: 20vh;
+    overflow: auto;
+}
+
+.file-upload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;   
+}
+
+.leaflet-routing-alt {
+    text-align: right;
+}
+
+#map { 
+    height: 80vh;
+    margin: 20px 40px 0 40px;
+}
+
+@media only screen and (max-width: 600px){
+    #map {
+        height: 60vh;
+        margin: 20px 20px 20px 20px;
+    }
+}

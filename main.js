@@ -12,15 +12,8 @@ async function handleDropAsync(e) {
     e.stopPropagation();
     e.preventDefault();
     const f = document.querySelector('.file-upload').files[0]
-    /* f is a File */
     const data = await f.arrayBuffer();
-    /* data is an ArrayBuffer */
     const workbook = XLSX.read(data);
-
-    /* const first_sheet_name = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[first_sheet_name];
-    const addresses_data = XLSX.utils.sheet_to_json(worksheet)[0];
-    let addresses = Object.keys(addresses_data); */
 
     let addresses = getSheetData(workbook);
 
@@ -34,7 +27,6 @@ async function handleDropAsync(e) {
         console.log(result);
     }));
     
-    // log the body of all the responses
     console.log(bodies);
 }
 
@@ -51,9 +43,9 @@ function parse_addresses_data(addresses) {
     let addrs = [];
     let addrs_data = [];
     for (let i = 0; i < addresses.length; i += 2) {
-	addrs_cursor = addresses[i];
-	addrs.push(addrs_cursor);
-	addrs_data[addrs_cursor] = addresses[i + 1];
+	    addrs_cursor = addresses[i];
+	    addrs.push(addrs_cursor);
+	    addrs_data[addrs_cursor] = addresses[i + 1];
     }
     return [addrs, addrs_data]
 }
